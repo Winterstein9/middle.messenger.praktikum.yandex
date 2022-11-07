@@ -1,9 +1,9 @@
 {
-    "extends": "stylelint-config-standard",
+    "extends": "stylelint-plugin-stylus/standard",
     "rules": {
       "color-hex-case": "lower"
     },
     "ignoreFiles": [
       "build/*"
     ]
-  } 
+  }

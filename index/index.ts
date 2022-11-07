@@ -1,5 +1,4 @@
-import Handlebars from "handlebars"
-import "./style.sass"
+import "./style.styl"
 import "./index.styl"
 import { idea } from "./idea"
 
