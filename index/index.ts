@@ -1,5 +1,5 @@
 import Handlebars from "handlebars"
-import "./style.styl"
+import "./style.sass"
 import "./index.styl"
 import { idea } from "./idea"
 
