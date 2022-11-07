@@ -1,7 +1,7 @@
 {
     "extends": "stylelint-plugin-stylus/standard",
     "rules": {
-      "color-hex-case": "lower"
+        "stylus/declaration-colon": "never"
     },
     "ignoreFiles": [
       "build/*"
