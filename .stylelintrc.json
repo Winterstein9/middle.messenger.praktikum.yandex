@@ -17,6 +17,6 @@
     },
     
     "ignoreFiles": [
-      "build/*"
+      "**/*.css"
     ]
   }
