@@ -1,30 +1,50 @@
-{{>index}}
 <main class="chat__list__main">
 <div class="chl__users_list">
     <nav class="chl__div__profile">
         <a href="/profile.hbs">profile</a>
     </nav>
-    {{#each users}}
-        {{#if this.user}}
+
+
+    <div class="chl__contacts">
+
         <div class="chl__contact_with_user">
             <div class="chl__div__img">
-                <img src="{{this.img}}" alt="img">
+                <img src="" alt="img">
             </div>
             <div class="chl__user__and__message">
-                <span class="chl__list__user__name">{{this.name}}</span>
-                <span class="chl__last__message">{{this.lastMessage}}</span>
+                <span class="chl__list__user__name">Тестировщик 1</span>
+                <span class="chl__last__message">Последнее сообщение</span>
             </div>
             <div class="chl__lastTime__and__countNewMessage">
                 <div class="chl__lastTimeMessage__div">
-                    <span class="chl__last__time__message">{{this.lastTimeMessage}}</span>
+                    <span class="chl__last__time__message">8:88</span>
                 </div>
                 <div class="chl__div__count__new__message">
-                    <span class="chl__count__new__message">{{this.newMessage}}</span>
+                    <span class="chl__count__new__message">88</span>
                 </div>
             </div>
         </div>
-        {{/if}}
-    {{/each}}
+
+        <div class="chl__contact_with_user">
+            <div class="chl__div__img">
+                <img src="" alt="img">
+            </div>
+            <div class="chl__user__and__message">
+                <span class="chl__list__user__name">Тестировщик 2</span>
+                <span class="chl__last__message">Последнее сообщение</span>
+            </div>
+            <div class="chl__lastTime__and__countNewMessage">
+                <div class="chl__lastTimeMessage__div">
+                    <span class="chl__last__time__message">8:88</span>
+                </div>
+                <div class="chl__div__count__new__message">
+                    <span class="chl__count__new__message">88</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 <div class="chl__div__chat">
     <span class="chl__select__chat">

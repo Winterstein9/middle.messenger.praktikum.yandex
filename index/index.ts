@@ -1,48 +1,104 @@
 import Handlebars from "handlebars"
 import "./style.styl"
 import "./index.styl"
-import index from "./index.hbs"
-import butSignIn from "/components/button/button.ts"
-
-import ccButton from "/components/cButton/cButton.js"
-
-Handlebars.registerPartial('index',`<a href="/index.html" class="index">index</a>`)
-
-document.body.innerHTML=index()
-
-//document.querySelector(".in__div__button__sign__in").innerHTML=butSignIn("butSignIn","Sign in")
-
-document.querySelector(".in__div__button__sign__in").innerHTML=new ccButton().render("butSignIn","Sign in")
+import { idea } from "./idea"
 
 
+class Navigator{
 
+    nav:HTMLElement
+    pages:any[]
+    title:HTMLElement|null=document.querySelector("#title")
 
-import sign_up from "/sign_up/sign_up"
-document.querySelector("#sign_up").addEventListener("click",()=>{
-    sign_up()
-})
+    constructor(idea:any[]){
+        //получение плана сайта
+        this.pages=idea
+        //формирование на основе плана временнной навигации
+        //носителя ссылок nav
+        this.nav=document.createElement('nav')
+        //класс для тфм
+        this.nav.classList.add("in__navigator")
+        //создание ссылок
+        //извлечение данных для ссылок
+        //установка обработчиков
+        this.pages.map((link)=>{
+            let a:HTMLElement = document.createElement('a')
+            a.textContent=link.name
+            a.setAttribute("id",link.id)
+            //класс для ссылок
+            a.classList.add("in__navigator__a")
+//назначение события
+//a - элемент которому назначается событие
+//link.page страница hbs
+//link.components компоненты для страница hbs
+//link.title - заголовок страницы hbs
 
-import profile from "/profile/profile"
-document.querySelector("#profile").addEventListener("click",()=>{
-    profile()
-})
+          //  console.log("link.data: ",link.data)
 
-import {chat_with_user} from "/chat/chat"
-document.querySelector("#chat").addEventListener("click",()=>{
-    chat_with_user()
-})
+            this.addEvent(a, link.page, link.title, link.components, link.data)
 
-import {chat_list} from "/chat/chat"
-document.querySelector("#chat_list").addEventListener("click",()=>{
-    chat_list()
-})
+            this.nav.appendChild(a)
+        })
+        //вставка первой страницы
+        this.connect(this.pages[0].page, this.pages[0].title, this.pages[0].components, this.pages[0].data)
+    }
 
-import {error404} from "/errors/errors"
-document.querySelector("#error404").addEventListener("click",()=>{
-    error404()
-})
+    //функция вставки представления
+    connect(page:any, title:string, components:any[]|undefined=undefined, data:any[]|undefined=undefined){
+        //if сделан на случай ошибки null
+        if(this.title){
+            //если объект заголовка получен - поменять заголовок
+            this.title.textContent=title
+        }
+        //вставить шаблон
+        document.body.innerHTML=page()
+        //вставить навигацию
+        document.body.appendChild(this.nav)
 
-import {error500} from "/errors/errors"
-document.querySelector("#error500").addEventListener("click",()=>{
-    error500()
-})
+        //если есть компоненты - передать их для обработки компонентам
+        if(components){
+            this.addComponents(components)
+        }
+//вставка заранее подготовленных данных
+        if(data){
+            this.addData(data)
+        }
+    }
+
+    //сюда передаются элементы нафигации - ссылки
+    //element - a , page - шаблон - функция hbs , components компоненты шаблона,
+    //title - заголовок, event - событие
+    addEvent(element:HTMLElement, page:any, title:string, components:any[]|undefined, data:any[]|undefined, event:string="click"){
+        //назначение событий ссылкам навигации
+        //при клике по ссылке возникнет событие вставки шаблона через this.connect
+        element.addEventListener(event,()=>{
+            //передача функции 
+            this.connect(page, title, components, data)
+        })
+    }
+//метод обработки массива компонентов
+    addComponents(components: any[]){
+        //если компонент 1
+        if(components.length==1){
+            //вставить этот компонент
+            document.querySelector(components[0].selector).innerHTML=new components[0].component().add(components[0].args)
+        }else{
+            //иначе извлекать в массиве
+            components.map((component)=>{
+                document.querySelector(component.selector).innerHTML+=new component.component().add(component.args)
+            })
+        }
+    }
+
+    addData(data:any[]){//data: { selector: string; data: string }
+        if(data.length==1){
+            document.querySelector(data[0].selector).innerHTML=data[0].data
+        }else{
+            data.map((data)=>{
+                document.querySelector(data.selector).innerHTML=data.data
+            })
+        }
+    }
+}
+
+new Navigator(idea)

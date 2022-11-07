@@ -8,8 +8,10 @@ export default class Block {
       FLOW_RENDER: "flow:render"
     };
   
-    _element = null; //свойства класса Block
-    _meta = null;
+    _element:any = null; //свойства класса Block
+    _meta:any = null;
+  props: any;
+  eventBus: () => EventBus;
   
     /** JSDoc
      * @param {string} tagName
@@ -17,7 +19,7 @@ export default class Block {
      *
      * @returns {void}
      */
-    constructor(tagName = "div", props = {}) {
+    constructor(tagName:string = "div", props = {}) {
       const eventBus = new EventBus();//создания экземпляра EventBus
       this._meta = { //свойство класса Block принимает объект
         tagName,
@@ -33,7 +35,7 @@ export default class Block {
       eventBus.emit(Block.EVENTS.INIT);
     }
   
-    _registerEvents(eventBus) {//регистрация событий
+    _registerEvents(eventBus: EventBus) {//регистрация событий
     //EVENTS.INIT -> название события, this.init.bind(this) init ->функция
       eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
       eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
@@ -55,12 +57,12 @@ export default class Block {
       this.componentDidMount();
     }
   
-    componentDidMount(oldProps) {}
+    componentDidMount(_oldProps?: undefined) {}
       dispatchComponentDidMount() {
           this.eventBus().emit(Block.EVENTS.FLOW_CDM);
       }
   
-    _componentDidUpdate(oldProps, newProps) {
+    _componentDidUpdate(oldProps: any, newProps: any) {
       const response = this.componentDidUpdate(oldProps, newProps);
       if (!response) {
         return;
@@ -68,11 +70,11 @@ export default class Block {
       this._render();
     }
   
-    componentDidUpdate(oldProps, newProps) {
+    componentDidUpdate(_oldProps: any, _newProps: any) {
       return true;
     }
   
-    setProps = nextProps => {
+    setProps = (nextProps: any) => {
       if (!nextProps) {
         return;
       }
@@ -95,17 +97,17 @@ export default class Block {
   
     render() {}
   
-    getContent() {
+    getContent():any {
       return this.element;
     }
   
-    _makePropsProxy(props) {
+    _makePropsProxy(props: {}) {
       // Можно и так передать this
       // Такой способ больше не применяется с приходом ES6+
       const self = this;
   
       return new Proxy(props, {
-        get(target, prop) {
+        get(target:any, prop) {
           const value = target[prop];
           return typeof value === "function" ? value.bind(target) : value;
         },
@@ -123,7 +125,7 @@ export default class Block {
       });
     }
   
-    _createDocumentElement(tagName) {
+    _createDocumentElement(tagName: any) {
       // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
       return document.createElement(tagName);
     }
