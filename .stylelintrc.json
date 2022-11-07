@@ -1,8 +1,5 @@
 {
-    "extends": "stylelint",
-    "plugins": [
-        "stylelint-plugin-stylus"
-      ],
+    "extends": "stylelint-plugin-stylus",
     "rules": {
         "stylus/declaration-colon": "never"
     },
