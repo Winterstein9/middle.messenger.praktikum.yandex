@@ -11,12 +11,7 @@
         }
       ],
 
-
     "rules": {
         "stylus/declaration-colon": "never"
-    },
-    
-    "ignoreFiles": [
-      "**/*.css"
-    ]
+    }
   }

@@ -532,72 +532,44 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"ioNBI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _styleStyl = require("./style.styl");
 var _indexStyl = require("./index.styl");
 var _idea = require("./idea");
+var _validForm = require("./validForm");
+var _validFormDefault = parcelHelpers.interopDefault(_validForm);
 class Navigator {
     title = document.querySelector("#title");
     constructor(idea){
-        //получение плана сайта
         this.pages = idea;
-        //формирование на основе плана временнной навигации
-        //носителя ссылок nav
         this.nav = document.createElement("nav");
-        //класс для тфм
         this.nav.classList.add("in__navigator");
-        //создание ссылок
-        //извлечение данных для ссылок
-        //установка обработчиков
         this.pages.map((link)=>{
             let a = document.createElement("a");
             a.textContent = link.name;
             a.setAttribute("id", link.id);
-            //класс для ссылок
             a.classList.add("in__navigator__a");
-            //назначение события
-            //a - элемент которому назначается событие
-            //link.page страница hbs
-            //link.components компоненты для страница hbs
-            //link.title - заголовок страницы hbs
-            //  console.log("link.data: ",link.data)
             this.addEvent(a, link.page, link.title, link.components, link.data);
             this.nav.appendChild(a);
         });
-        //вставка первой страницы
         this.connect(this.pages[0].page, this.pages[0].title, this.pages[0].components, this.pages[0].data);
     }
-    //функция вставки представления
     connect(page, title, components, data) {
-        //if сделан на случай ошибки null
-        if (this.title) //если объект заголовка получен - поменять заголовок
-        this.title.textContent = title;
-        //вставить шаблон
+        if (this.title) this.title.textContent = title;
         document.body.innerHTML = page();
-        //вставить навигацию
         document.body.appendChild(this.nav);
-        //если есть компоненты - передать их для обработки компонентам
         if (components) this.addComponents(components);
-        //вставка заранее подготовленных данных
         if (data) this.addData(data);
+        new (0, _validFormDefault.default)();
     }
-    //сюда передаются элементы нафигации - ссылки
-    //element - a , page - шаблон - функция hbs , components компоненты шаблона,
-    //title - заголовок, event - событие
     addEvent(element, page, title, components, data, event = "click") {
-        //назначение событий ссылкам навигации
-        //при клике по ссылке возникнет событие вставки шаблона через this.connect
         element.addEventListener(event, ()=>{
-            //передача функции 
             this.connect(page, title, components, data);
         });
     }
-    //метод обработки массива компонентов
     addComponents(components) {
-        //если компонент 1
-        if (components.length == 1) //вставить этот компонент
-        document.querySelector(components[0].selector).innerHTML = new components[0].component().add(components[0].args);
-        else //иначе извлекать в массиве
-        components.map((component)=>{
+        if (components.length == 1) document.querySelector(components[0].selector).innerHTML = new components[0].component().add(components[0].args);
+        else components.map((component)=>{
             document.querySelector(component.selector).innerHTML += new component.component().add(component.args);
         });
     }
@@ -610,7 +582,7 @@ class Navigator {
 }
 new Navigator((0, _idea.idea));
 
-},{"./index.styl":"656WF","./idea":"jjHT0","./style.styl":"dS2Wg"}],"656WF":[function() {},{}],"jjHT0":[function(require,module,exports) {
+},{"./style.styl":"dS2Wg","./index.styl":"656WF","./idea":"jjHT0","./validForm":"9fryI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dS2Wg":[function() {},{}],"656WF":[function() {},{}],"jjHT0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "idea", ()=>idea);
@@ -708,7 +680,7 @@ const idea = [
     }
 ];
 
-},{"./index.hbs":"4cZjA","/sign_up/sign_up":"jHOzB","/profile/profile":"loKV1","/chat/chat":"boCv1","/errors/404":"3BxzK","/errors/500":"RjHl6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","/chat/chat_list":"eXZtN","../components/users/usersList":"bAiSR","../components/users/usersListActive":"6X93f","../components/messages/messages":"fccIU","../components/cButton/cButton":"rjt5I"}],"4cZjA":[function(require,module,exports) {
+},{"./index.hbs":"4cZjA","/sign_up/sign_up":"jHOzB","/profile/profile":"loKV1","/chat/chat":"boCv1","/chat/chat_list":"eXZtN","/errors/404":"3BxzK","/errors/500":"RjHl6","../components/cButton/cButton":"rjt5I","../components/users/usersList":"bAiSR","../components/users/usersListActive":"6X93f","../components/messages/messages":"fccIU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4cZjA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -719,7 +691,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
         ">= 4.3.0"
     ],
     "main": function(container, depth0, helpers, partials, data) {
-        return '<main class="index__main">\n    <div class="in__div__sign__in">\n        <form class="in__form__sign__in">\n            <div class="in__div__login">\n                <input type="text" class="in__login" placeholder="login" name="login">\n            </div>\n            <div class="in__div__password">\n                <input type="password" class="in__password" placeholder="password" name="password">\n            </div>\n            <div class="in__div__button__sign__in">\n            </div>\n            <div class="in__div__sign__up">\n                <a class="in__link__sign__up" href="/sign_up.hbs">Sign up</a>\n            </div>\n        </form>\n    </div>\n</main>';
+        return '<main class="index__main">\n    <div class="in__div__sign__in">\n        <form class="in__form__sign__in un__form">\n       \n                <input type="text" class="in__data__user__buttons" placeholder="login" name="login">\n            \n                <input type="password" class="in__data__user__buttons" placeholder="password" name="password">\n           \n            <div class="in__div__button__sign__in">\n            </div>\n            <div class="in__div__sign__up">\n                <a class="in__link__sign__up" href="/sign_up.hbs">Sign up</a>\n            </div>\n        </form>\n    </div>\n</main>';
     },
     "useData": true
 });
@@ -12092,7 +12064,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
         ">= 4.3.0"
     ],
     "main": function(container, depth0, helpers, partials, data) {
-        return '<main class="sign__up__main">\n    <div class="si__sign__up__div">\n\n        <form class="si__sign__up__form">\n\n            <div class="si__data__user__div">\n                <input type="email" class="si__data__user__buttons" placeholder="email" name="email">\n            </div>\n\n            <div class="si__data__user__div">\n                <input type="text" class="si__data__user__buttons" placeholder="first name" name="first_name">\n            </div>\n\n            <div class="si__data__user__div">\n                <input type="text" class="si__data__user__buttons" placeholder="second name" name="second_name">\n            </div>\n\n            <div class="si__data__user__div">\n                <input type="text" class="si__data__user__buttons" placeholder="phone" name="phone">\n            </div>\n\n            <div class="si__data__user__div">\n                <input type="password" class="si__data__user__buttons" placeholder="password" name="password">\n            </div>\n        \n            <input type="submit" class="si__sign__in__button" value="Sign up">\n\n            <div class="si__sign__in__div">\n                <a class="si__sign__in__link" href="/index.hbs">Sign in</a>\n            </div>\n        </form>\n    </div>\n    </main>';
+        return '<main class="sign__up__main">\n    <div class="si__sign__up__div">\n\n        <form class="si__sign__up__form un__form">\n            <input type="text" class="si__data__user__buttons" placeholder="first name" name="first_name">\n\n            <input type="text" class="si__data__user__buttons" placeholder="second name" name="second_name">\n \n            <input type="email" class="si__data__user__buttons" placeholder="email" name="email">\n\n            <input type="text" class="si__data__user__buttons" placeholder="phone" name="phone">\n\n            <input type="password" class="si__data__user__buttons" placeholder="password" name="password">\n        \n        <div class="si__sign__in__button__div">\n            <input type="submit" class="si__sign__in__button un__submit" value="Sign up">\n        </div>\n            <div class="si__sign__in__div">\n                <a class="si__sign__in__link" href="/index.hbs">Sign in</a>\n            </div>\n        </form>\n    </div>\n    </main>';
     },
     "useData": true
 });
@@ -12105,7 +12077,6 @@ var _profileStyl = require("./profile.styl");
 var _changeImgStyl = require("./change_img.styl");
 var _profileHbs = require("./profile.hbs");
 var _profileHbsDefault = parcelHelpers.interopDefault(_profileHbs);
-//import change_img from "./change_img.hbs"
 exports.default = (0, _profileHbsDefault.default);
 
 },{"./profile.styl":"9RZL5","./change_img.styl":"b0p2S","./profile.hbs":"MKPa8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9RZL5":[function() {},{}],"b0p2S":[function() {},{}],"MKPa8":[function(require,module,exports) {
@@ -12119,7 +12090,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
         ">= 4.3.0"
     ],
     "main": function(container, depth0, helpers, partials, data) {
-        return '    <main class="profile__main">\n    <div class="pr__div__data__user">\n            <div class="pr__data__user__div">\n                <input type="email" class="pr__data__user__buttons" placeholder="email" name="email" value="pochta@yandex.ru">\n            </div>\n\n            <div class="pr__data__user__div">\n                <input type="text" class="pr__data__user__buttons" placeholder="login" name="login" value="Will">\n            </div>\n\n            <div class="pr__data__user__div">\n                <input type="text" class="pr__data__user__buttons" placeholder="first name" name="first_name" value="William">\n            </div>\n\n            <div class="pr__data__user__div">\n                <input type="text" class="pr__data__user__buttons" placeholder="second name" name="second_name" value="Holmes">\n            </div>\n\n            <div class="pr__data__user__div">\n                <input type="text" class="pr__data__user__buttons" placeholder="phone" name="phone" value="+79110000007">\n            </div>\n\n            <div class="pr__data__user__div">\n                <input type="password" class="pr__data__user__buttons" placeholder="phone" name="phone" value="4123">\n            </div>\n\n            <div class="pr__sign__in__div">\n                <input type="submit" class="pr__change__data__buttons" name="phone" value="change data">\n            </div>\n\n             <div class="pr__sign__in__div">\n                <a class="pr__change__img__link">изменить изображение</a>\n            </div>\n\n            <div class="pr__sign__in__div">\n                <a class="pr__link__exit" href="/index.hbs">выйти</a>\n            </div>\n    </div>\n    </main>';
+        return '    <main class="profile__main">\n    <div class="pr__div__data__user">\n           <form class="pr__form un__form">\n                <input type="email" class="pr__data__user__buttons" placeholder="email" name="email" value="pochta@yandex.ru">\n           \n                <input type="text" class="pr__data__user__buttons" placeholder="login" name="login" value="Will">\n\n                <input type="text" class="pr__data__user__buttons" placeholder="first name" name="first_name" value="William">\n\n                <input type="text" class="pr__data__user__buttons" placeholder="second name" name="second_name" value="Holmes">\n\n                <input type="text" class="pr__data__user__buttons" placeholder="phone" name="phone" value="79110000007">\n\n                <input type="password" class="pr__data__user__buttons" placeholder="password" name="password" value="4123">\n\n            <div class="pr__sign__in__div">\n                <input type="submit" class="pr__change__data__buttons" name="change_data" value="change data">\n            </div>\n            </form>\n             <div class="pr__sign__in__div">\n                <a class="pr__change__img__link">изменить изображение</a>\n            </div>\n\n            <div class="pr__sign__in__div">\n                <a class="pr__link__exit" href="/index.hbs">выйти</a>\n            </div>\n    </div>\n    </main>';
     },
     "useData": true
 });
@@ -12133,7 +12104,7 @@ var _chatWithUserHbs = require("./chat_with_user.hbs");
 var _chatWithUserHbsDefault = parcelHelpers.interopDefault(_chatWithUserHbs);
 exports.default = (0, _chatWithUserHbsDefault.default);
 
-},{"./chat_with_user.hbs":"hThBD","./chat_with_user.styl":"d0T0b","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hThBD":[function(require,module,exports) {
+},{"./chat_with_user.styl":"d0T0b","./chat_with_user.hbs":"hThBD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d0T0b":[function() {},{}],"hThBD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -12150,7 +12121,32 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d0T0b":[function() {},{}],"3BxzK":[function(require,module,exports) {
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eXZtN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _chatListStyl = require("./chat_list.styl");
+var _chatListHbs = require("./chat_list.hbs");
+var _chatListHbsDefault = parcelHelpers.interopDefault(_chatListHbs);
+exports.default = (0, _chatListHbsDefault.default);
+
+},{"./chat_list.styl":"d8tsW","./chat_list.hbs":"4a8mi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d8tsW":[function() {},{}],"4a8mi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+const templateFunction = (0, _handlebarsDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        return '<main class="chat__list__main">\n<div class="chl__users_list">\n    <nav class="chl__div__profile">\n        <a href="/profile.hbs">profile</a>\n    </nav>\n\n\n    <div class="chl__contacts">\n\n        <div class="chl__contact_with_user">\n            <div class="chl__div__img">\n                <img src="" alt="img">\n            </div>\n            <div class="chl__user__and__message">\n                <span class="chl__list__user__name">Тестировщик 1</span>\n                <span class="chl__last__message">Последнее сообщение</span>\n            </div>\n            <div class="chl__lastTime__and__countNewMessage">\n                <div class="chl__lastTimeMessage__div">\n                    <span class="chl__last__time__message">8:88</span>\n                </div>\n                <div class="chl__div__count__new__message">\n                    <span class="chl__count__new__message">88</span>\n                </div>\n            </div>\n        </div>\n\n        <div class="chl__contact_with_user">\n            <div class="chl__div__img">\n                <img src="" alt="img">\n            </div>\n            <div class="chl__user__and__message">\n                <span class="chl__list__user__name">Тестировщик 2</span>\n                <span class="chl__last__message">Последнее сообщение</span>\n            </div>\n            <div class="chl__lastTime__and__countNewMessage">\n                <div class="chl__lastTimeMessage__div">\n                    <span class="chl__last__time__message">8:88</span>\n                </div>\n                <div class="chl__div__count__new__message">\n                    <span class="chl__count__new__message">88</span>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n</div>\n<div class="chl__div__chat">\n    <span class="chl__select__chat">\n    Выберите чат, чтобы отправить сообщение\n    </span>\n</div>\n</main>';
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3BxzK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _errorsStyl = require("./errors.styl");
@@ -12195,366 +12191,6 @@ const templateFunction = (0, _handlebarsDefault.default).template({
     ],
     "main": function(container, depth0, helpers, partials, data) {
         return '<main class="errors__main">\n    <div class="er__div__error">\n    <span class="er__number">500</span>\n    <span class="er__message">Internal Server Error</span>\n    <a href="/index.hbs">index</a>\n    </div>\n</main>';
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eXZtN":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _chatListStyl = require("./chat_list.styl");
-var _chatListHbs = require("./chat_list.hbs");
-var _chatListHbsDefault = parcelHelpers.interopDefault(_chatListHbs);
-exports.default = (0, _chatListHbsDefault.default);
-
-},{"./chat_list.styl":"d8tsW","./chat_list.hbs":"4a8mi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d8tsW":[function() {},{}],"4a8mi":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebars = require("handlebars");
-var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
-const templateFunction = (0, _handlebarsDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        return '<main class="chat__list__main">\n<div class="chl__users_list">\n    <nav class="chl__div__profile">\n        <a href="/profile.hbs">profile</a>\n    </nav>\n\n\n    <div class="chl__contacts">\n\n        <div class="chl__contact_with_user">\n            <div class="chl__div__img">\n                <img src="" alt="img">\n            </div>\n            <div class="chl__user__and__message">\n                <span class="chl__list__user__name">Тестировщик 1</span>\n                <span class="chl__last__message">Последнее сообщение</span>\n            </div>\n            <div class="chl__lastTime__and__countNewMessage">\n                <div class="chl__lastTimeMessage__div">\n                    <span class="chl__last__time__message">8:88</span>\n                </div>\n                <div class="chl__div__count__new__message">\n                    <span class="chl__count__new__message">88</span>\n                </div>\n            </div>\n        </div>\n\n        <div class="chl__contact_with_user">\n            <div class="chl__div__img">\n                <img src="" alt="img">\n            </div>\n            <div class="chl__user__and__message">\n                <span class="chl__list__user__name">Тестировщик 2</span>\n                <span class="chl__last__message">Последнее сообщение</span>\n            </div>\n            <div class="chl__lastTime__and__countNewMessage">\n                <div class="chl__lastTimeMessage__div">\n                    <span class="chl__last__time__message">8:88</span>\n                </div>\n                <div class="chl__div__count__new__message">\n                    <span class="chl__count__new__message">88</span>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n</div>\n<div class="chl__div__chat">\n    <span class="chl__select__chat">\n    Выберите чат, чтобы отправить сообщение\n    </span>\n</div>\n</main>';
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bAiSR":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _user = require("./user");
-var _userDefault = parcelHelpers.interopDefault(_user);
-var _dataUsers = require("../data/dataUsers");
-//объект информации пользователя который передается из dataUsers
-//{ img: "#", user: true, name: "Duglas", lastMessage: "Hello", lastTimeMessage: "22:15", newMessage: "7" }
-//требующиеся аргументы для создания представления контакта с пользователем
-//makeUser(img:string|null, name:string, lastMessage:string|null, lastTimeMessage:string|null, newMessage:string|null){
-//формирует динамический лист
-class UsersList {
-    usersList = "";
-    constructor(users){
-        users.map((user)=>{
-            this.usersList += new (0, _userDefault.default)().makeUser(user.img, user.name, user.lastMessage, user.lastTimeMessage, user.newMessage);
-        });
-    }
-    getUsersList() {
-        return this.usersList;
-    }
-}
-exports.default = new UsersList((0, _dataUsers.users)).getUsersList();
-
-},{"./user":"gqNO3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../data/dataUsers":"loLmT"}],"gqNO3":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-//import "./user.styl"
-var _userHbs = require("./user.hbs");
-var _userHbsDefault = parcelHelpers.interopDefault(_userHbs);
-var _activeUserHbs = require("./activeUser.hbs");
-var _activeUserHbsDefault = parcelHelpers.interopDefault(_activeUserHbs);
-class User {
-    makeUser(img, name, lastMessage, lastTimeMessage, newMessage) {
-        return (0, _userHbsDefault.default)({
-            img: img,
-            name: name,
-            lastMessage: lastMessage,
-            lastTimeMessage: lastTimeMessage,
-            newMessage: newMessage
-        });
-    }
-    makeActiveUser(img, name, lastMessage, lastTimeMessage, newMessage) {
-        return (0, _activeUserHbsDefault.default)({
-            img: img,
-            name: name,
-            lastMessage: lastMessage,
-            lastTimeMessage: lastTimeMessage,
-            newMessage: newMessage
-        });
-    }
-} /*
-<div class="ch__contact_with_user">
-    <div class="ch__div__img">
-        <img src="{{this.img}}" alt="img">
-    </div>
-    <div class="ch__user__and__message">
-    <span class="ch__list__user__name">{{this.name}}</span>
-    <span class="ch__last__message">{{this.lastMessage}}</span>
-    </div>
-    <div class="ch__lastTime__and__countNewMessage">
-        <div class="ch__lastTimeMessage__div">
-            <span class="ch__last__time__message">{{this.lastTimeMessage}}</span>
-        </div>
-    <div class="ch__div__count__new__message">
-        <span class="ch__count__new__message">{{this.newMessage}}</span>
-    </div>
-    </div>
-</div>
-*/ 
-exports.default = User;
-
-},{"./user.hbs":"d6Tve","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./activeUser.hbs":"bmfVD"}],"d6Tve":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebars = require("handlebars");
-var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
-const templateFunction = (0, _handlebarsDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var alias1 = container.lambda, alias2 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '<div class="ch__contact_with_user">\n    <div class="ch__div__img">\n        <img src="' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "img") : depth0, depth0)) + '" alt="img">\n    </div>\n    <div class="ch__user__and__message">\n    <span class="ch__list__user__name">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "name") : depth0, depth0)) + '</span>\n    <span class="ch__last__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "lastMessage") : depth0, depth0)) + '</span>\n    </div>\n    <div class="ch__lastTime__and__countNewMessage">\n        <div class="ch__lastTimeMessage__div">\n            <span class="ch__last__time__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "lastTimeMessage") : depth0, depth0)) + '</span>\n        </div>\n    <div class="ch__div__count__new__message">\n        <span class="ch__count__new__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "newMessage") : depth0, depth0)) + "</span>\n    </div>\n    </div>\n</div>";
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bmfVD":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebars = require("handlebars");
-var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
-const templateFunction = (0, _handlebarsDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var alias1 = container.lambda, alias2 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return ' <div class="ch__contact_with_user ch__active__contact__user">\n            <div class="ch__div__img">\n                <img src="' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "img") : depth0, depth0)) + '" alt="img">\n            </div>\n            <div class="ch__user__and__message">\n                <span class="ch__list__user__name">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "name") : depth0, depth0)) + '</span>\n                <span class="ch__last__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "lastMessage") : depth0, depth0)) + '</span>\n            </div>\n            <div class="ch__lastTime__and__countNewMessage">\n                <div class="ch__lastTimeMessage__div">\n                    <span class="ch__last__time__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "lastTimeMessage") : depth0, depth0)) + '</span>\n                </div>\n                <div class="ch__div__count__new__message">\n                </div>\n            </div>\n        </div>';
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"loLmT":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "users", ()=>users);
-let users = [
-    {
-        img: "#",
-        user: true,
-        name: "Duglas",
-        lastMessage: "Hello",
-        lastTimeMessage: "22:15",
-        newMessage: "7"
-    },
-    {
-        img: "#",
-        user: true,
-        name: "Karolina",
-        lastMessage: "изображение",
-        lastTimeMessage: "22:15",
-        newMessage: "0",
-        active: "true",
-        messages: [
-            {
-                message: "Выберите чат, чтобы отправить сообщение",
-                time: "8:08"
-            },
-            {
-                message: "Выберите чат сообщение Выберите чат, чтобы отправить сообщение",
-                time: "8:09"
-            },
-            {
-                message: "Выберите чат чат Выберите чат, чтобы отправить сообщение Выберите чат",
-                img: "/static/6566.jpg",
-                time: "8:10"
-            },
-            {
-                myMessage: "Hello",
-                time: "8:09"
-            }
-        ]
-    },
-    {
-        img: "#",
-        user: true,
-        name: "William",
-        lastMessage: "bye",
-        lastTimeMessage: "22:15",
-        newMessage: "17"
-    }
-];
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6X93f":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _user = require("./user");
-var _userDefault = parcelHelpers.interopDefault(_user);
-var _dataUsers = require("../data/dataUsers");
-//объект информации пользователя который передается из dataUsers
-//{ img: "#", user: true, name: "Duglas", lastMessage: "Hello", lastTimeMessage: "22:15", newMessage: "7" }
-//требующиеся аргументы для создания представления контакта с пользователем
-//makeUser(img:string|null, name:string, lastMessage:string|null, lastTimeMessage:string|null, newMessage:string|null){
-//формирует динамический лист
-class UsersList {
-    usersList = "";
-    constructor(users){
-        users.map((user)=>{
-            if (!user.active) this.usersList += new (0, _userDefault.default)().makeUser(user.img, user.name, user.lastMessage, user.lastTimeMessage, user.newMessage);
-            else this.usersList += new (0, _userDefault.default)().makeActiveUser(user.img, user.name, user.lastMessage, user.lastTimeMessage, user.newMessage);
-        });
-    }
-    getUsersList() {
-        return this.usersList;
-    }
-}
-exports.default = new UsersList((0, _dataUsers.users)).getUsersList();
-
-},{"./user":"gqNO3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../data/dataUsers":"loLmT"}],"fccIU":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _message = require("./message");
-var _messageDefault = parcelHelpers.interopDefault(_message);
-var _dataUsers = require("../data/dataUsers");
-//объект информации пользователя который передается из dataUsers
-//{ img: "#", user: true, name: "Duglas", lastMessage: "Hello", lastTimeMessage: "22:15", newMessage: "7" }
-//требующиеся аргументы для создания представления контакта с пользователем
-//makeUser(img:string|null, name:string, lastMessage:string|null, lastTimeMessage:string|null, newMessage:string|null){
-//формирует динамический лист
-class Messages {
-    messages = "";
-    constructor(users){
-        users.map((user)=>{
-            if (user.active && user.messages.length > 0) user.messages.map((m)=>{
-                if (m.message) this.messages += new (0, _messageDefault.default)().makeUserMessage(m.message, m.img, m.time);
-                else this.messages += new (0, _messageDefault.default)().makeMyMesssage(m.myMessage, m.time);
-            });
-        });
-    }
-    getMessages() {
-        return this.messages;
-    }
-}
-exports.default = new Messages((0, _dataUsers.users)).getMessages();
-
-},{"./message":"dOXNd","../data/dataUsers":"loLmT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dOXNd":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _userMessageHbs = require("./userMessage.hbs");
-var _userMessageHbsDefault = parcelHelpers.interopDefault(_userMessageHbs);
-var _myMessageHbs = require("./myMessage.hbs");
-var _myMessageHbsDefault = parcelHelpers.interopDefault(_myMessageHbs);
-class Message {
-    makeUserMessage(message, img, time) {
-        return (0, _userMessageHbsDefault.default)({
-            message: message,
-            img: img,
-            time: time
-        });
-    }
-    makeMyMesssage(message, time) {
-        return (0, _myMessageHbsDefault.default)({
-            message: message,
-            time: time
-        });
-    }
-} /*
-<div  class="ch__message_left ch__message">
-    <span>{{this.message}}</span>
-    <img src="{{this.img}}" alt="img" class="ch__img__chat">
-    <span class="ch__time__message">{{this.time}}</span>
-</div>
-*/ 
-exports.default = Message;
-
-},{"./userMessage.hbs":"8SPs3","./myMessage.hbs":"laQ36","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8SPs3":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebars = require("handlebars");
-var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
-const templateFunction = (0, _handlebarsDefault.default).template({
-    "1": function(container, depth0, helpers, partials, data) {
-        var lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '    <img src="' + container.escapeExpression(container.lambda(depth0 != null ? lookupProperty(depth0, "img") : depth0, depth0)) + '" alt="img" class="ch__img__chat">\n';
-    },
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, alias1 = container.lambda, alias2 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '<div  class="ch__message_left ch__message">\n    <span>' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "message") : depth0, depth0)) + "</span>\n" + ((stack1 = lookupProperty(helpers, "if").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "img") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(1, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 3,
-                    "column": 5
-                },
-                "end": {
-                    "line": 5,
-                    "column": 11
-                }
-            }
-        })) != null ? stack1 : "") + '    <span class="ch__time__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "time") : depth0, depth0)) + "</span>\n</div>";
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"laQ36":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebars = require("handlebars");
-var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
-const templateFunction = (0, _handlebarsDefault.default).template({
-    "1": function(container, depth0, helpers, partials, data) {
-        var lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '    <img src="' + container.escapeExpression(container.lambda(depth0 != null ? lookupProperty(depth0, "img") : depth0, depth0)) + '" alt="img" class="ch__img__chat">\n';
-    },
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, alias1 = container.lambda, alias2 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '<div class="ch__message_right ch__message">\n    <span>' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "message") : depth0, depth0)) + "</span>\n\n" + ((stack1 = lookupProperty(helpers, "if").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "img") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(1, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 4,
-                    "column": 4
-                },
-                "end": {
-                    "line": 6,
-                    "column": 11
-                }
-            }
-        })) != null ? stack1 : "") + '\n\n    <span class="ch__time__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "time") : depth0, depth0)) + "</span>\n</div>";
     },
     "useData": true
 });
@@ -12782,6 +12418,401 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dS2Wg":[function() {},{}]},["cQv7f","ioNBI"], "ioNBI", "parcelRequire94c2")
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bAiSR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _user = require("./user");
+var _userDefault = parcelHelpers.interopDefault(_user);
+var _dataUsers = require("../data/dataUsers");
+//объект информации пользователя который передается из dataUsers
+//{ img: "#", user: true, name: "Duglas", lastMessage: "Hello", lastTimeMessage: "22:15", newMessage: "7" }
+//требующиеся аргументы для создания представления контакта с пользователем
+//makeUser(img:string|null, name:string, lastMessage:string|null, lastTimeMessage:string|null, newMessage:string|null){
+//формирует динамический лист
+class UsersList {
+    usersList = "";
+    constructor(users){
+        users.map((user)=>{
+            this.usersList += new (0, _userDefault.default)().makeUser(user.img, user.name, user.lastMessage, user.lastTimeMessage, user.newMessage);
+        });
+    }
+    getUsersList() {
+        return this.usersList;
+    }
+}
+exports.default = new UsersList((0, _dataUsers.users)).getUsersList();
+
+},{"./user":"gqNO3","../data/dataUsers":"loLmT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gqNO3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+//import "./user.styl"
+var _userHbs = require("./user.hbs");
+var _userHbsDefault = parcelHelpers.interopDefault(_userHbs);
+var _activeUserHbs = require("./activeUser.hbs");
+var _activeUserHbsDefault = parcelHelpers.interopDefault(_activeUserHbs);
+class User {
+    makeUser(img, name, lastMessage, lastTimeMessage, newMessage) {
+        return (0, _userHbsDefault.default)({
+            img: img,
+            name: name,
+            lastMessage: lastMessage,
+            lastTimeMessage: lastTimeMessage,
+            newMessage: newMessage
+        });
+    }
+    makeActiveUser(img, name, lastMessage, lastTimeMessage, newMessage) {
+        return (0, _activeUserHbsDefault.default)({
+            img: img,
+            name: name,
+            lastMessage: lastMessage,
+            lastTimeMessage: lastTimeMessage,
+            newMessage: newMessage
+        });
+    }
+} /*
+<div class="ch__contact_with_user">
+    <div class="ch__div__img">
+        <img src="{{this.img}}" alt="img">
+    </div>
+    <div class="ch__user__and__message">
+    <span class="ch__list__user__name">{{this.name}}</span>
+    <span class="ch__last__message">{{this.lastMessage}}</span>
+    </div>
+    <div class="ch__lastTime__and__countNewMessage">
+        <div class="ch__lastTimeMessage__div">
+            <span class="ch__last__time__message">{{this.lastTimeMessage}}</span>
+        </div>
+    <div class="ch__div__count__new__message">
+        <span class="ch__count__new__message">{{this.newMessage}}</span>
+    </div>
+    </div>
+</div>
+*/ 
+exports.default = User;
+
+},{"./user.hbs":"d6Tve","./activeUser.hbs":"bmfVD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d6Tve":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+const templateFunction = (0, _handlebarsDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var alias1 = container.lambda, alias2 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<div class="ch__contact_with_user">\n    <div class="ch__div__img">\n        <img src="' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "img") : depth0, depth0)) + '" alt="img">\n    </div>\n    <div class="ch__user__and__message">\n    <span class="ch__list__user__name">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "name") : depth0, depth0)) + '</span>\n    <span class="ch__last__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "lastMessage") : depth0, depth0)) + '</span>\n    </div>\n    <div class="ch__lastTime__and__countNewMessage">\n        <div class="ch__lastTimeMessage__div">\n            <span class="ch__last__time__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "lastTimeMessage") : depth0, depth0)) + '</span>\n        </div>\n    <div class="ch__div__count__new__message">\n        <span class="ch__count__new__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "newMessage") : depth0, depth0)) + "</span>\n    </div>\n    </div>\n</div>";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bmfVD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+const templateFunction = (0, _handlebarsDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var alias1 = container.lambda, alias2 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return ' <div class="ch__contact_with_user ch__active__contact__user">\n            <div class="ch__div__img">\n                <img src="' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "img") : depth0, depth0)) + '" alt="img">\n            </div>\n            <div class="ch__user__and__message">\n                <span class="ch__list__user__name">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "name") : depth0, depth0)) + '</span>\n                <span class="ch__last__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "lastMessage") : depth0, depth0)) + '</span>\n            </div>\n            <div class="ch__lastTime__and__countNewMessage">\n                <div class="ch__lastTimeMessage__div">\n                    <span class="ch__last__time__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "lastTimeMessage") : depth0, depth0)) + '</span>\n                </div>\n                <div class="ch__div__count__new__message">\n                </div>\n            </div>\n        </div>';
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"loLmT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "users", ()=>users);
+let users = [
+    {
+        img: "#",
+        user: true,
+        name: "Duglas",
+        lastMessage: "Hello",
+        lastTimeMessage: "22:15",
+        newMessage: "7"
+    },
+    {
+        img: "#",
+        user: true,
+        name: "Karolina",
+        lastMessage: "изображение",
+        lastTimeMessage: "22:15",
+        newMessage: "0",
+        active: "true",
+        messages: [
+            {
+                message: "Выберите чат, чтобы отправить сообщение",
+                time: "8:08"
+            },
+            {
+                message: "Выберите чат сообщение Выберите чат, чтобы отправить сообщение",
+                time: "8:09"
+            },
+            {
+                message: "Выберите чат чат Выберите чат, чтобы отправить сообщение Выберите чат",
+                img: "/static/6566.jpg",
+                time: "8:10"
+            },
+            {
+                myMessage: "Hello",
+                time: "8:09"
+            }
+        ]
+    },
+    {
+        img: "#",
+        user: true,
+        name: "William",
+        lastMessage: "bye",
+        lastTimeMessage: "22:15",
+        newMessage: "17"
+    }
+];
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6X93f":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _user = require("./user");
+var _userDefault = parcelHelpers.interopDefault(_user);
+var _dataUsers = require("../data/dataUsers");
+//объект информации пользователя который передается из dataUsers
+//{ img: "#", user: true, name: "Duglas", lastMessage: "Hello", lastTimeMessage: "22:15", newMessage: "7" }
+//требующиеся аргументы для создания представления контакта с пользователем
+//makeUser(img:string|null, name:string, lastMessage:string|null, lastTimeMessage:string|null, newMessage:string|null){
+//формирует динамический лист
+class UsersList {
+    usersList = "";
+    constructor(users){
+        users.map((user)=>{
+            if (!user.active) this.usersList += new (0, _userDefault.default)().makeUser(user.img, user.name, user.lastMessage, user.lastTimeMessage, user.newMessage);
+            else this.usersList += new (0, _userDefault.default)().makeActiveUser(user.img, user.name, user.lastMessage, user.lastTimeMessage, user.newMessage);
+        });
+    }
+    getUsersList() {
+        return this.usersList;
+    }
+}
+exports.default = new UsersList((0, _dataUsers.users)).getUsersList();
+
+},{"./user":"gqNO3","../data/dataUsers":"loLmT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fccIU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _message = require("./message");
+var _messageDefault = parcelHelpers.interopDefault(_message);
+var _dataUsers = require("../data/dataUsers");
+//объект информации пользователя который передается из dataUsers
+//{ img: "#", user: true, name: "Duglas", lastMessage: "Hello", lastTimeMessage: "22:15", newMessage: "7" }
+//требующиеся аргументы для создания представления контакта с пользователем
+//makeUser(img:string|null, name:string, lastMessage:string|null, lastTimeMessage:string|null, newMessage:string|null){
+//формирует динамический лист
+class Messages {
+    messages = "";
+    constructor(users){
+        users.map((user)=>{
+            if (user.active && user.messages.length > 0) user.messages.map((m)=>{
+                if (m.message) this.messages += new (0, _messageDefault.default)().makeUserMessage(m.message, m.img, m.time);
+                else this.messages += new (0, _messageDefault.default)().makeMyMesssage(m.myMessage, m.time);
+            });
+        });
+    }
+    getMessages() {
+        return this.messages;
+    }
+}
+exports.default = new Messages((0, _dataUsers.users)).getMessages();
+
+},{"./message":"dOXNd","../data/dataUsers":"loLmT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dOXNd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _userMessageHbs = require("./userMessage.hbs");
+var _userMessageHbsDefault = parcelHelpers.interopDefault(_userMessageHbs);
+var _myMessageHbs = require("./myMessage.hbs");
+var _myMessageHbsDefault = parcelHelpers.interopDefault(_myMessageHbs);
+class Message {
+    makeUserMessage(message, img, time) {
+        return (0, _userMessageHbsDefault.default)({
+            message: message,
+            img: img,
+            time: time
+        });
+    }
+    makeMyMesssage(message, time) {
+        return (0, _myMessageHbsDefault.default)({
+            message: message,
+            time: time
+        });
+    }
+} /*
+<div  class="ch__message_left ch__message">
+    <span>{{this.message}}</span>
+    <img src="{{this.img}}" alt="img" class="ch__img__chat">
+    <span class="ch__time__message">{{this.time}}</span>
+</div>
+*/ 
+exports.default = Message;
+
+},{"./userMessage.hbs":"8SPs3","./myMessage.hbs":"laQ36","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8SPs3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+const templateFunction = (0, _handlebarsDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        var lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '    <img src="' + container.escapeExpression(container.lambda(depth0 != null ? lookupProperty(depth0, "img") : depth0, depth0)) + '" alt="img" class="ch__img__chat">\n';
+    },
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, alias1 = container.lambda, alias2 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<div  class="ch__message_left ch__message">\n    <span>' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "message") : depth0, depth0)) + "</span>\n" + ((stack1 = lookupProperty(helpers, "if").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "img") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 5
+                },
+                "end": {
+                    "line": 5,
+                    "column": 11
+                }
+            }
+        })) != null ? stack1 : "") + '    <span class="ch__time__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "time") : depth0, depth0)) + "</span>\n</div>";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"laQ36":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+const templateFunction = (0, _handlebarsDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        var lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '    <img src="' + container.escapeExpression(container.lambda(depth0 != null ? lookupProperty(depth0, "img") : depth0, depth0)) + '" alt="img" class="ch__img__chat">\n';
+    },
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, alias1 = container.lambda, alias2 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<div class="ch__message_right ch__message">\n    <span>' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "message") : depth0, depth0)) + "</span>\n\n" + ((stack1 = lookupProperty(helpers, "if").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "img") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 4
+                },
+                "end": {
+                    "line": 6,
+                    "column": 11
+                }
+            }
+        })) != null ? stack1 : "") + '\n\n    <span class="ch__time__message">' + alias2(alias1(depth0 != null ? lookupProperty(depth0, "time") : depth0, depth0)) + "</span>\n</div>";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars":"i0QfX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9fryI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class ValidForm {
+    ids = {
+        first_name: new RegExp("^[A-Za-z0-9_-]{3,16}$"),
+        second_name: new RegExp("^[A-Za-z0-9_-]{3,16}$"),
+        email: new RegExp("^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$", "i"),
+        phone: new RegExp("^[0-9_-]{3,16}$"),
+        password: new RegExp("[a-z0-9_-]{3,16}$"),
+        login: new RegExp("^[A-Za-z0-9_-]{3,16}$")
+    };
+    userData = {};
+    constructor(){
+        this.un__form = document.querySelector(".un__form");
+        if (this.un__form !== null) {
+            this.getInputs();
+            this.un__form.addEventListener("submit", (e)=>{
+                e.preventDefault();
+                this.validSubmit();
+            });
+        }
+    }
+    getInputs() {
+        this.inputs = this.un__form.querySelectorAll(".un__form > input");
+        this.validFocus(this.inputs);
+        this.validBlur(this.inputs);
+    }
+    validSubmit() {
+        if (this.inputs !== null && this.inputs !== undefined) this.inputs.forEach((input)=>{
+            let result = input.value.match(this.ids[input.name]);
+            if (result == null) console.log(input.name, "submit: false", input.value);
+            else {
+                console.log(input.name, "submit: true", input.value);
+                this.userData[input.name] = input.value;
+                if (this.inputs?.length == Object.keys(this.userData).length) console.log(this.userData);
+            }
+        });
+    }
+    validFocus(inputs) {
+        inputs?.forEach((input)=>{
+            input.addEventListener("focus", (e)=>{
+                let result = e.target.value.match(this.ids[e.target.name]);
+                if (result == null) console.log(e.target.name, "focus: false", e.target.value);
+                else console.log(e.target.name, "focus: true", e.target.value);
+            });
+        });
+    }
+    validBlur(inputs) {
+        inputs?.forEach((input)=>{
+            input.addEventListener("blur", (e)=>{
+                let result = e.target.value.match(this.ids[e.target.name]);
+                if (result == null) console.log(e.target.name, "blur: false", e.target.value);
+                else console.log(e.target.name, "blur: true", e.target.value);
+            });
+        });
+    }
+}
+exports.default = ValidForm;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["cQv7f","ioNBI"], "ioNBI", "parcelRequire94c2")
 
 //# sourceMappingURL=index.1c640ac5.js.map
