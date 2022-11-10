@@ -1,12 +1,35 @@
 Команда запуска проекта:
 yarn run dev 
-npm run dev
+yarn run dev
 
 Запуск express:
 npm start
 
+Привет.
+Данная ссылка рабочая
+Домен Netlify:
+https://idyllic-sherbet-2a6ef8.netlify.app/
+
 Ссылка на макет в Figma:
 https://www.figma.com/file/IMsXBqoz7otiAwdPLArSwx/Untitled?node-id=0%3A1
 
-Домен Netlify:
-https://idyllic-sherbet-2a6ef8.netlify.app/
+1 Файла .DS_Store и папки dist не должно быть в репозитории
+Ответ: Автотестирование не проходит без файлов css,
+все стили в styl, в соответствии с требованием первого спринта,
+ не переделывать же их в css обратно.
+
+4 При запуске через build и start белая страницы, ошибка в консоле
+Ответ: Видимо express должен работать с index.html из dist, однако dist добавлять нельзя,
+также нельзя пройти первый автотест без указания на папку index.
+У прошедших ревью также указан dist, который нельзя добавлять.
+Сейчас без dist работает. build правильно работает.
+
+2 На нетлифае при переходе на страницы page not found, необходимо настроить redirects в netlify.toml https://docs.netlify.com/configure-builds/file-based-configuration/
+Ответ: все работает https://idyllic-sherbet-2a6ef8.netlify.app/.
+
+3 Использование any не очень хорошая практика, теряются преимущества typescript
+Ответ: без any typescript часто выдает ошибки исправление которых неочевидно и 
+возможно они неисправимы. На это уйдет не менее месяца, постараюсь исправить.
+
+5 Будет здорово почистить проект от закомментированного кода и поправить форматирование, в этом может помочь prettier
+Ответ: исправлено

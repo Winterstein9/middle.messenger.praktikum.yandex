@@ -9,6 +9,5 @@ export let users = [
     ]}, 
     {img : "#",  user : true, name : "William", lastMessage : "bye", lastTimeMessage : "22:15", newMessage : "17"},
 
-
     {name:"myMessage", mymessages : [{message: "Hello", time : "8:09"}]}
 ]

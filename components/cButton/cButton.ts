@@ -5,6 +5,6 @@ import cButton from "./cButton.hbs"
 
 export default class ccButton extends Block{
     add({butName, butValue, butClass}:any):HTMLInputElement{
-        return cButton({butName:butName, butValue:butValue, butClass:butClass})
+        return cButton({butName, butValue, butClass})
     }
 }

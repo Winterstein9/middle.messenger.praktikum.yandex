@@ -1,14 +1,14 @@
 import EventBus from "./eventBus";
 
 export default class Block {
-    static EVENTS = {//объект
-      INIT: "init",//свойства объекта EVENTS
+    static EVENTS = {
+      INIT: "init",
       FLOW_CDM: "flow:component-did-mount",
       FLOW_CDU: "flow:component-did-update",
       FLOW_RENDER: "flow:render"
     };
   
-    _element:any = null; //свойства класса Block
+    _element:any = null;
     _meta:any = null;
   props: any;
   eventBus: () => EventBus;
@@ -20,13 +20,12 @@ export default class Block {
      * @returns {void}
      */
     constructor(tagName:string = "div", props = {}) {
-      const eventBus = new EventBus();//создания экземпляра EventBus
-      this._meta = { //свойство класса Block принимает объект
+      const eventBus = new EventBus();
+      this._meta = {
         tagName,
         props
       };
   
-      //props получает 
       this.props = this._makePropsProxy(props); 
   
       this.eventBus = () => eventBus;
@@ -35,8 +34,7 @@ export default class Block {
       eventBus.emit(Block.EVENTS.INIT);
     }
   
-    _registerEvents(eventBus: EventBus) {//регистрация событий
-    //EVENTS.INIT -> название события, this.init.bind(this) init ->функция
+    _registerEvents(eventBus: EventBus) {
       eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
       eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
       eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -88,10 +86,6 @@ export default class Block {
   
     _render() {
       const block = this.render();
-      // Этот небезопасный метод для упрощения логики
-      // Используйте шаблонизатор из npm или напишите свой безопасный
-      // Нужно не в строку компилировать (или делать это правильно),
-      // либо сразу в DOM-элементы возвращать из compile DOM-ноду
       this._element.innerHTML = block;
     }
   
@@ -102,8 +96,6 @@ export default class Block {
     }
   
     _makePropsProxy(props: {}) {
-      // Можно и так передать this
-      // Такой способ больше не применяется с приходом ES6+
       const self = this;
   
       return new Proxy(props, {
@@ -113,9 +105,6 @@ export default class Block {
         },
         set(target, prop, value) {
           target[prop] = value;
-          
-          // Запускаем обновление компоненты
-          // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
           self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
           return true;
         },
@@ -126,7 +115,6 @@ export default class Block {
     }
   
     _createDocumentElement(tagName: any) {
-      // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
       return document.createElement(tagName);
     }
   

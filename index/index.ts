@@ -1,4 +1,4 @@
-import "./style.styl"
+import "./style.css"
 import "./index.styl"
 import { idea } from "./idea"
 import ValidForm from "./validForm"
