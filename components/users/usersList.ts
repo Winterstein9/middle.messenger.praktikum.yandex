@@ -1,11 +1,16 @@
 import User from "./user"
 import {users} from "../data/dataUsers"
 
+
+import type {UsersT, UserT} from "../data/dataUsers"
+
 class UsersList{
     usersList:string=""
-    constructor(users: any[]){
-        users.map((user: any)=>{     
-             this.usersList+=new User().makeUser(user.img, user.name, user.lastMessage, user.lastTimeMessage, user.newMessage)
+    constructor(users: UsersT){
+        users.map((user: UserT)=>{
+            if(user.name!="myMessage"){
+                this.usersList+=new User().makeUser(user.img, user.name, user.lastMessage, user.lastTimeMessage, user.newMessage)
+            }
         })
     }
 

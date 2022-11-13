@@ -10,8 +10,8 @@ export default class Block {
   
     _element:any = null;
     _meta:any = null;
-  props: any;
-  eventBus: () => EventBus;
+    props: any;
+    eventBus: () => EventBus;
   
     /** JSDoc
      * @param {string} tagName

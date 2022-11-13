@@ -1,16 +1,41 @@
 import index from "./index.hbs"
-import sign_up from "/sign_up/sign_up"
-import profile from "/profile/profile"
-import chat_with_user from "/chat/chat"
-import chat_list from "/chat/chat_list"
-import error404 from "/errors/404"
-import error500 from "/errors/500"
+
+let ineee = require("./index.hbs")
+
+import sign_up from "../sign_up/sign_up"
+import profile from "../profile/profile"
+import chat_with_user from "../chat/chat"
+import chat_list from "../chat/chat_list"
+import error404 from "../errors/404"
+import error500 from "../errors/500"
 import ccButton from "../components/cButton/cButton"
 import userList from "../components/users/usersList"
-import userListActive from "../components/users/usersListActive"
+import {usersListActive} from "../components/users/usersListActive"
 import messages from "../components/messages/messages"
+export type { Idea, Page, Component, Data }
 
-export const idea:any[]=[
+type Idea = Array<Page>
+
+type Page = {
+    name:string,
+    id:string,
+    title:string,
+    page:object,
+    components?:Component,
+    data?:Data
+}
+
+type Component = [
+    {
+        component:any,
+        selector:string,
+        args:object
+    }
+]
+
+type Data = Array<Record<string, string>>
+
+export const idea:Idea=[
     {
         name:"index",
         id:"index",
@@ -56,7 +81,11 @@ export const idea:any[]=[
         data:[
             {
                 selector:".ch__contacts",
-                data:userListActive
+                data:usersListActive.usersList
+            },
+            {
+                selector:".ch__name__top__active__user",
+                data:usersListActive.topNameActiveUser
             },
             {
                 selector:".ch__div__messages",

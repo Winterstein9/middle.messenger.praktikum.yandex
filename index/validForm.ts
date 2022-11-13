@@ -1,6 +1,6 @@
 export default class ValidForm{
-    un__form:HTMLFormElement|null|any
-    inputs:NodeListOf<Element>|null|undefined
+    un__form:HTMLFormElement|null
+    inputs:NodeListOf<Element>|null
 
     ids: Record<string, RegExp> = {
         first_name: new RegExp("^[A-Za-z0-9_-]{3,16}$"),
@@ -17,7 +17,7 @@ export default class ValidForm{
             this.un__form=document.querySelector(".un__form")
             if(this.un__form!==null){
                 this.getInputs()
-                this.un__form.addEventListener('submit',(e:any)=>{
+                this.un__form.addEventListener('submit',(e:Event)=>{
                     e.preventDefault()
                     this.validSubmit()
                 })
@@ -25,9 +25,12 @@ export default class ValidForm{
     }
 
     getInputs(){
-        this.inputs=this.un__form.querySelectorAll('.un__form > input')
-        this.validFocus(this.inputs)
-        this.validBlur(this.inputs)
+        if(this.un__form){
+            this.inputs=this.un__form.querySelectorAll('.un__form > input')
+            this.validFocus(this.inputs)
+            this.validBlur(this.inputs)
+            this.validKeyup(this.inputs)
+        }
     }
 
     validSubmit(){
@@ -35,8 +38,10 @@ export default class ValidForm{
             this.inputs.forEach((input:HTMLInputElement)=>{
                 let result = input.value.match(this.ids[input.name])
                 if(result==null){
+                    this.addInputError(input)
                     console.log(input.name,"submit: false", input.value)
                 }else{
+                    this.removeInputError(input)
                     console.log(input.name,"submit: true", input.value)
                     this.userData[input.name]=input.value
                     if(this.inputs?.length==Object.keys(this.userData).length){
@@ -47,29 +52,58 @@ export default class ValidForm{
         }
     }
 
-    validFocus(inputs:NodeListOf<Element>|null|undefined){
+    validFocus(inputs:NodeListOf<Element>|null){
         inputs?.forEach((input)=>{
-            input.addEventListener('focus',(e:any)=>{
-                let result = e.target.value.match(this.ids[e.target.name])
+            input.addEventListener('focus',(e:Event)=>{
+              let input:HTMLInputElement=e.target as HTMLInputElement
+              let result:string[]|null=input.value.match(this.ids[input.name])
                 if(result==null){
-                    console.log(e.target.name,"focus: false", e.target.value)
+                    console.log(input.name,"focus: false", input.value)
                 }else{
-                    console.log(e.target.name,"focus: true", e.target.value)
+                    console.log(input.name,"focus: true", input.value)
                 }
             })
         })
     }
 
-    validBlur(inputs:NodeListOf<Element>|null|undefined){
+    validBlur(inputs:NodeListOf<Element>|null){
         inputs?.forEach((input)=>{
-            input.addEventListener('blur',(e:any)=>{
-                let result = e.target.value.match(this.ids[e.target.name])
+            input.addEventListener('blur',(e:Event)=>{
+              let input:HTMLInputElement=e.target as HTMLInputElement
+              let result:string[]|null=input.value.match(this.ids[input.name])
                 if(result==null){
-                    console.log(e.target.name,"blur: false", e.target.value)
+                    console.log(input.name,"blur: false", input.value)
                 }else{
-                    console.log(e.target.name,"blur: true", e.target.value)
+                    console.log(input.name,"blur: true", input.value)
                 }
             })
         })
     }
+
+    validKeyup(inputs:NodeListOf<Element>|null){
+        inputs?.forEach((input)=>{
+            input.addEventListener('keyup',(e:Event)=>{
+              let input:HTMLInputElement=e.target as HTMLInputElement
+              let result:string[]|null=input.value.match(this.ids[input.name])
+                if(result==null){
+                    this.addInputError(input)
+                    console.log(input.name,"blur: false", input.value)
+                }else{
+                    this.removeInputError(input)
+                    console.log(input.name,"blur: true", input.value)
+                }
+            })
+        })
+    }
+
+    addInputError(input:HTMLInputElement){
+        input.classList.add("error__input")
+    }
+
+    removeInputError(input:HTMLInputElement){
+        if(input.classList.contains("error__input")){
+            input.classList.remove("error__input")
+        }
+    }
+
 }

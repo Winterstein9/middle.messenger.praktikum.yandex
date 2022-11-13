@@ -16,3 +16,7 @@ body{
     top: 10px;
     color: brown;
 }
+
+.error__input{
+    border-bottom: 2px dashed brown
+}
