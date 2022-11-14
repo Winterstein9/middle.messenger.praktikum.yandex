@@ -14,14 +14,14 @@ export default class ValidForm{
     userData: Record<string, string> = {}
 
     constructor(){
-            this.un__form=document.querySelector(".un__form")
-            if(this.un__form!==null){
-                this.getInputs()
-                this.un__form.addEventListener('submit',(e:Event)=>{
-                    e.preventDefault()
-                    this.validSubmit()
-                })
-            }
+        this.un__form=document.querySelector(".un__form")
+        if(this.un__form!==null){
+            this.getInputs()
+            this.un__form.addEventListener('submit',(e:Event)=>{
+                e.preventDefault()
+                this.validSubmit()
+            })
+        }
     }
 
     getInputs(){

@@ -4,21 +4,31 @@ enum METHOD {
     PUT = 'PUT',
     PATCH = 'PATCH',
     DELETE = 'DELETE'
-};
+}
 
 type Options = {
-method: METHOD;
-data?: any;
-};
-
-type OptionsWithoutMethod = Omit<Options, 'method'>;
+    method: METHOD;
+    data?: any;
+}
 
 class HTTPTransport {
-    get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-        return this.request(url, {...options, method: METHOD.GET});
-    };
+    get(url: string, options: Options):Promise<XMLHttpRequest>{
+        return this.request(url, options);
+    }
 
-    request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
+    post(url:string, options:Options):Promise<XMLHttpRequest>{
+        return this.request(url, options)
+    }
+
+    put(url:string, options:Options):Promise<XMLHttpRequest>{
+        return this.request(url, options)
+    }
+
+    delete(url:string, options:Options):Promise<XMLHttpRequest>{
+        return this.request(url, options)
+    }
+
+    request(url: string, options: Options): Promise<XMLHttpRequest> {
         const {method, data} = options;
 
         return new Promise((resolve, reject) => {
@@ -27,7 +37,7 @@ class HTTPTransport {
             
             xhr.onload = function() {
                 resolve(xhr);
-            };
+            }
 
             xhr.onabort = reject;
             xhr.onerror = reject;
@@ -36,8 +46,10 @@ class HTTPTransport {
             if (method === METHOD.GET || !data) {
                 xhr.send();
             } else {
-                xhr.send(data);
+                xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+                let body=JSON.stringify(data)
+                xhr.send(body)
             }
-        });
-    };
+        })
+    }
 } 
