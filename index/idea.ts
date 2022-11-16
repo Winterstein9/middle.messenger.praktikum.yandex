@@ -1,7 +1,5 @@
 import index from "./index.hbs"
 
-let ineee = require("./index.hbs")
-
 import sign_up from "../sign_up/sign_up"
 import profile from "../profile/profile"
 import chat_with_user from "../chat/chat"
@@ -20,7 +18,7 @@ type Page = {
     name:string,
     id:string,
     title:string,
-    page:object,
+    page:()=>string,
     components?:Component,
     data?:Data
 }
@@ -38,7 +36,7 @@ type Data = Array<Record<string, string>>
 export const idea:Idea=[
     {
         name:"index",
-        id:"index",
+        id:"/",
         title:"index",
         page:index,
         components:[

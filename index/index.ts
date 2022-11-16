@@ -1,7 +1,7 @@
 import "./style.css"
 import "./index.styl"
 import { idea } from "./idea"
-
+import ValidForm from "./validForm"
 import type {Idea, Page, Component, Data} from "./idea"
 
 
@@ -23,6 +23,7 @@ class Navigator{
         })
 
         this.getPage()
+        new ValidForm()
     }
 
     setSail(page:Page){
