@@ -1,0 +1,68 @@
+<main class="chat__list__main">
+
+<div class="ch__users__list">
+
+    <nav class="chl__div__profile">
+        <span class="ch__userName"></span>
+        <a class="chl__a__profile internal__link" id="profile" href="settings">мой профиль</a>
+    </nav>
+
+    <div class="chl__div__addChat">
+        <form class="un__form">
+            <input type="text" placeholder="имя чата" name="chatName">
+            <button>+</button>
+        </form>
+    </div>
+
+    <div class="ch__contacts">
+    </div>
+</div>
+
+    <div  class="ch__div__chat">
+
+         <div class="ch__div__selectChatDisplay">
+            <span class="chl__select__chat">
+            Выберите чат, чтобы отправить сообщение
+            </span>
+        </div>
+
+        <div class="ch__div__userManagmentDisplay">
+          
+                <div class="ch__div__leftUserMangment">
+                    <form class="un__form">
+                        <input type="text" placeholder="имя пользователя" name="searchUserName" class="user__name">
+                        <button>+</button>
+                    </form>
+                    <div class="ch__users"></div>
+                </div>
+
+
+                <div class="ch__div__rightUserMangment">
+                    <span class="ch__titleUserList">Пользователей в чате:</span>
+
+                    <div class="ch__usersInChat"></div>
+                </div>
+        </div>
+
+
+        <div class="ch__div__chat__display">
+
+            <div class="ch__div__top">
+                <div class="ch__img__top__active__user">
+                    <!--img src="#" alt="img"-->
+                </div>
+                <div class="ch__name__top__active__user"></div>
+            </div>
+
+            <div class="ch__div__messages"></div>
+
+            <div class="ch__div__send__message">
+                <form class="ch__form__sendMessage">
+                    <input type="textarea" name="message" class="ch__textarea">
+                    <input type="submit" value="send" class="ch__send__button">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</main>
