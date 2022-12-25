@@ -6,6 +6,7 @@
     "@parcel/transformer-stylus": "2.7.0",
     "eslint": "^8.26.0",
     "eslint-config-airbnb": "^19.0.4",
+    "mocha": "^10.2.0",
     "parcel": "^2.7.0",
     "parcel-transformer-hbs": "^1.0.4",
     "stylelint": "^14.14.1",
