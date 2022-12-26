@@ -27,6 +27,13 @@ export default class ValidForm{
     userData: Record<string, string> = {}
 
     constructor(){
+        if(location.pathname=="/"){
+            let login=localStorage.getItem('Login');
+            if(login){
+                new Navigator(idea, "/chats")
+            }
+        }
+
         this.unForms=document.querySelectorAll(".un__form")
         if(this.unForms!==null){
             this.unForms.forEach((form:HTMLFormElement)=>{
@@ -69,8 +76,13 @@ export default class ValidForm{
                                }
                             })
                         }else if(location=="/sign_up"){
-                            this.HTTPTransport.post("auth/signup",
-                            {method:"POST", data:this.userData})
+                            this.HTTPTransport.post("auth/signup",{method:"POST", data:this.userData}).then((ans)=>{
+                                if(ans.id){
+                                     new Navigator(idea, "/chats")
+                                }
+                             })
+
+
                         }else if(location=="/settings"){
                             this.userData.display_name=this.userData.login
                             this.HTTPTransport.put("user/profile",{method:"PUT", data:this.userData})

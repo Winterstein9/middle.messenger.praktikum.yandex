@@ -4,11 +4,17 @@ yarn run dev
 Запуск express:
 yarn start
 
-Домен Netlify:
-https://idyllic-sherbet-2a6ef8.netlify.app/
+Привет! Все работает.
+Зарегистрировал двух пользователей:
+1) login: jonathan pssword: qwerty
+2) login: doro pssword: qwerty
+jonathan создал чат hello
+пользователь doro добавлен в чат
+для получения сообщений у обоих пользователей должен быть выбран чат
+Навигация работает, все ссылки обрабатываются, работает ошибка 404 ,
+при неверно введенной ссылке. При обновлении страницы отображается та же страница.
+Перемещение вперед - назад работает.
 
-Ссылка на макет в Figma:
-https://www.figma.com/file/IMsXBqoz7otiAwdPLArSwx/Untitled?node-id=0%3A1
 
 Были реализованы:
 
@@ -16,3 +22,9 @@ https://www.figma.com/file/IMsXBqoz7otiAwdPLArSwx/Untitled?node-id=0%3A1
 -изменение данные пользователя, аватар, пароль
 -создание нового чата, добавить пользователя в чат, удаление пользователя из чата
 -подключение WebSocket для работы с real-time сообщениями
+
+Домен Netlify:
+https://idyllic-sherbet-2a6ef8.netlify.app/
+
+Ссылка на макет в Figma:
+https://www.figma.com/file/IMsXBqoz7otiAwdPLArSwx/Untitled?node-id=0%3A1

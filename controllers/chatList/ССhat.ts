@@ -123,7 +123,7 @@ export class CChat{
                         const data = JSON.parse(ansFromServer.data)
                         if(data.type=="message"){
                             const divEL = document.createElement("div")
-                            divEL.appendChild(document.createTextNode(`${data.login} ${data.content}`))
+                            divEL.appendChild(document.createTextNode(`${data.login}: ${data.content}`))
                             divEL.className="ch__div__message"
                             if(this.chatELDIV){
                                 this.chatELDIV.appendChild(divEL)
@@ -238,6 +238,7 @@ export class CChat{
 
     getUserData(){
         this.HTTPTransport.get("auth/user",{method:"GET"}).then(ans=>{
+            localStorage.setItem('Login', ans.login)
             this.fatalUser=ans
             this.userID=ans.id
             let userName=document.querySelector(".ch__userName")
