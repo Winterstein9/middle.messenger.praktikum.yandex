@@ -58,7 +58,7 @@ export class HTTPTransport {
           }
         } else {
           console.log(`errror: ${xhr.status}: ${xhr.statusText}`);
-          reject("АААА соединения с сервером");
+          reject("ошибка соединения с сервером");
         }
       };
     });

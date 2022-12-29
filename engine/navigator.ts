@@ -14,7 +14,7 @@ export class Navigator {
 
     this.pages.map((page: Page) => {
       this.setSail(page);
-      this.setNavLinks(page);
+      //this.setNavLinks(page);
     });
 
     this.navigator(navPath);
