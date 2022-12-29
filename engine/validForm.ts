@@ -27,9 +27,6 @@ export default class ValidForm {
   userData: Record<string, string> = {};
 
   constructor() {
-
-    localStorage.clear();
-    
     if (location.pathname == "/") {
       let login = localStorage.getItem("Login");
       if (login) {
