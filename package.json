@@ -17,7 +17,7 @@
   "scripts": {
     "dev": "parcel index/index.html",
     "build": "parcel build index/index.html",
-    "start": "yarn node ./express.js"
+    "start": "yarn node express.js"
   },
   "dependencies": {
     "express": "4.18.2"
