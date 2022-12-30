@@ -25,7 +25,7 @@ type ChatUT = {
   title: string;
   avatar?: string;
   unread_count?: string | null;
-  last_message?: string;
+  last_message?: LastMessage;
   id?: number;
 };
 
