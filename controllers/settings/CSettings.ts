@@ -21,7 +21,9 @@ export class CSettings {
           }
         });
       }
-    });
+    }).catch((err: string) => {
+        console.error("error", err);
+      });;
   }
 
   logout() {

@@ -42,6 +42,8 @@ export class CСhangeIMG {
           this.avatar.src = avatarPath;
           localStorage.setItem("userAvatar", avatarPath);
         }
+      }).catch((err: string) => {
+        console.error("error", err);
       });
     });
   }
