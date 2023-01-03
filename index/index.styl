@@ -24,7 +24,7 @@ $color-2 = #51b5c5
     justify-content center
     border-radius 10px
 
-.in__for__sign__in
+.in__form__sign__in
     display flex
     flex-direction column
     align-items center
@@ -50,3 +50,30 @@ $color-2 = #51b5c5
 .in__link__sign__up
     color $color-2
     font-size 18px
+
+.in__navigator
+    color white
+    position absolute
+    top 10px
+    right 10px
+    .in__navigator__a
+        cursor pointer
+    .in__navigator__a:visited
+        color:white
+
+.in__navigator__a + .in__navigator__a
+    margin-left 10px
+   
+   .in__data__user__buttons
+    +.in__data__user__buttons
+        margin-top 25px
+
+.in__data__user__buttons
+    width 180px
+    background-color $color-1
+    color silver
+    border none
+    border-bottom 2px dashed $color-2
+    text-align center
+    font-size 20px
+    outline none
