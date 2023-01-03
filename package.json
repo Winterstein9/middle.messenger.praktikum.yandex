@@ -4,20 +4,22 @@
     "@parcel/transformer-inline-string": "2.7.0",
     "@parcel/transformer-sass": "2.7.0",
     "@parcel/transformer-stylus": "2.7.0",
-    "eslint": "^8.26.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "parcel": "^2.7.0",
-    "parcel-transformer-hbs": "^1.0.4",
-    "stylelint": "^14.14.1",
-    "stylelint-plugin-stylus": "^0.17.0",
-    "typescript": "^4.8.4"
+    "chai": "4.3.7",
+    "eslint": "8.26.0",
+    "eslint-config-airbnb": "19.0.4",
+    "mocha": "10.2.0",
+    "parcel": "2.7.0",
+    "parcel-transformer-hbs": "1.0.4",
+    "stylelint": "14.14.1",
+    "stylelint-plugin-stylus": "0.17.0",
+    "typescript": "4.8.4"
   },
   "scripts": {
     "dev": "parcel index/index.html",
     "build": "parcel build index/index.html",
-    "start": "node express.js"
+    "start": "yarn node express.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "4.18.2"
   }
 }

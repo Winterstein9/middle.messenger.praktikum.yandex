@@ -1,12 +1,36 @@
-import user from "./user.hbs"
-import activeUser from "./activeUser.hbs"
+import user from "./user.hbs";
+import activeUser from "./activeUser.hbs";
 
-export default class User{
-    makeUser(img:string|undefined, name:string, lastMessage:string|undefined, lastTimeMessage:string|undefined, newMessage:string|undefined){
-        return user({img:img, name:name, lastMessage:lastMessage, lastTimeMessage:lastTimeMessage, newMessage:newMessage})
-    }
+export default class User {
+  makeUser(
+    first_name: string,
+    second_name?: string,
+    display_name?: string | null,
+    login?: string | undefined,
+    avatar?: string | null
+  ) {
+    return user({
+      first_name: first_name,
+      second_name: second_name,
+      display_name: display_name,
+      login: login,
+      avatar: avatar,
+    });
+  }
 
-    makeActiveUser(img:string|undefined, name:string, lastMessage:string|undefined, lastTimeMessage:string|undefined, newMessage:string|undefined){
-        return activeUser({img:img, name:name, lastMessage:lastMessage, lastTimeMessage:lastTimeMessage, newMessage:newMessage})
-    }
+  makeActiveUser(
+    first_name: string,
+    second_name?: string,
+    display_name?: string | null,
+    login?: string | undefined,
+    avatar?: string | null
+  ) {
+    return activeUser({
+      ifirst_name: first_name,
+      second_name: second_name,
+      display_name: display_name,
+      login: login,
+      avatar: avatar,
+    });
+  }
 }
