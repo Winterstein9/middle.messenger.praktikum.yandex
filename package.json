@@ -1,25 +1,33 @@
 {
+  "name": "4w",
+  "version": "1.0.0",
+  "main": "navigation.ts",
+  "scripts": {
+    "start": "webpack serve",
+    "dev": "webpack --node-env=development",
+    "prod": "webpack --node-env=production",
+    "clear": "rd /s /q dist",
+    "test": "mocha --require ts-node/register './test/**/*.test.ts'"
+  },
   "license": "MIT",
   "devDependencies": {
-    "@parcel/transformer-inline-string": "2.7.0",
-    "@parcel/transformer-sass": "2.7.0",
-    "@parcel/transformer-stylus": "2.7.0",
-    "chai": "4.3.7",
-    "eslint": "8.26.0",
-    "eslint-config-airbnb": "19.0.4",
-    "mocha": "10.2.0",
-    "parcel": "2.7.0",
-    "parcel-transformer-hbs": "1.0.4",
-    "stylelint": "14.14.1",
-    "stylelint-plugin-stylus": "0.17.0",
-    "typescript": "4.8.4"
-  },
-  "scripts": {
-    "dev": "parcel index/index.html",
-    "build": "parcel build index/index.html",
-    "start": "yarn node express.js"
-  },
-  "dependencies": {
-    "express": "4.18.2"
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "css-loader": "6.7.3",
+    "handlebars": "4.7.7",
+    "handlebars-loader": "1.7.3",
+    "html-loader": "4.2.0",
+    "html-webpack-plugin": "5.5.0",
+    "mocha": "^10.2.0",
+    "style-loader": "3.3.1",
+    "stylus": "0.59.0",
+    "stylus-loader": "7.1.0",
+    "ts-loader": "9.4.2",
+    "ts-node": "^10.9.1",
+    "typescript": "4.9.4",
+    "webpack": "5.75.0",
+    "webpack-cli": "5.0.1",
+    "webpack-dev-server": "4.11.1"
   }
 }

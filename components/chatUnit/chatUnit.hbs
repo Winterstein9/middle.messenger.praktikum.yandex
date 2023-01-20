@@ -1,20 +1,16 @@
 <div class="ch__chatUnit" data-id="{{this.id}}">
     <div class="ch__div__img">
-        <img src="{{this.avatar}}" alt="img">
+        <img src="{{avatar}}" alt="img">
     </div>
     <div class="ch__user__and__message">
-
-    <span class="ch__title__chatName">{{this.title}}</span>
-
-    <span class="ch__list__user__name">имя пользователя</span>
-
-    <span class="ch__last__message">последнее сообщение</span>
-
-<div>
-    <span class="ch__delChat">удалить</span>
-    <span class="ch__chatUsers">пользователи</span>
-    <!--span>добавить</span-->
-</div>
+        <span class="ch__title__chatName">{{this.title}}</span>
+        <span class="ch__list__user__name">{{login}}</span>
+        <span class="ch__last__message">{{lastMessage}}</span>
+        <div>
+            <span class="ch__delChat">удалить</span>
+            <span class="ch__chatUsers">пользователи</span>
+            <!--span>добавить</span-->
+        </div>
     </div>
     <div class="ch__lastTime__and__countNewMessage">
         <div class="ch__lastTimeMessage__div">

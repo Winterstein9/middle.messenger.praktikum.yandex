@@ -39,7 +39,7 @@ export class HTTPTransport {
       xhr.open(method, commonPath + url);
 
       if (method === Method.GET || !data) {
-        xhr.send();
+          xhr.send();
       } else if (!(data instanceof FormData)) {
         xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
         let body = JSON.stringify(data);
@@ -51,7 +51,7 @@ export class HTTPTransport {
       xhr.onload = function () {
         if (xhr.status == 200) {
           if (xhr.responseText[0] == "{" || xhr.responseText[0] == "[") {
-            let gObject = JSON.parse(xhr.responseText);
+            const gObject = JSON.parse(xhr.responseText);
             resolve(gObject);
           } else {
             resolve(xhr.responseText);

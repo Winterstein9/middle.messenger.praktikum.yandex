@@ -1,3 +1,4 @@
+//import "../index/index.html"
 import { idea } from "./idea";
 import type { Idea, Page, Component, Data } from "./idea";
 
@@ -7,17 +8,18 @@ export class Navigator {
   title: HTMLElement | null = document.querySelector("#title");
   sail: Record<string, Page> = {};
 
-  constructor(idea: Idea, navPath?: string) {
-    this.pages = idea;
-    this.nav = document.createElement("nav");
-    this.nav.classList.add("in__navigator");
+  private static _Navigator: Navigator;
 
+  constructor() {
+    if (Navigator._Navigator) {
+      return Navigator._Navigator;
+    }
+    Navigator._Navigator = this;
+
+    this.pages = idea;
     this.pages.map((page: Page) => {
       this.setSail(page);
-      //this.setNavLinks(page);
     });
-
-    this.navigator(navPath);
   }
 
   setSail(page: Page) {
@@ -28,16 +30,7 @@ export class Navigator {
     }
   }
 
-  setNavLinks(page: Page) {
-    let a: HTMLElement = document.createElement("a");
-    a.textContent = page.name;
-    a.setAttribute("id", page.id);
-    a.setAttribute("href", page.id);
-    a.classList.add("in__navigator__a");
-    this.nav.appendChild(a);
-  }
-
-  navigator(path?: string | null) {
+  segue(path?: string | null) {
     let link = path || document.location.pathname;
     if (path) {
       document.location.pathname = path;
@@ -59,8 +52,6 @@ export class Navigator {
       if (web.valid) {
         new web.valid();
       }
-
-      document.body.appendChild(this.nav);
     } else {
       document.body.innerHTML = this.sail["/404"].page();
       this.setTitle(this.sail["/404"].title);
@@ -112,4 +103,4 @@ export class Navigator {
   }
 }
 
-new Navigator(idea);
+new Navigator().segue();

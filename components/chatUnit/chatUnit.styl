@@ -1,3 +1,18 @@
+$color-1 = #343434
+
+.ch__chatUnit
+    width 300px
+    background-color $color-1
+    display flex
+    justify-content center
+    justify-content space-between
+    border-radius 10px
+    margin-top 10px
+    padding 0 2px
+
+.ch__user__and__message
+    padding-left 5px
+
 .ch__delChat
     color: #CD6155
 
@@ -6,3 +21,20 @@
 
 .ch__delChat, .ch__chatUsers
     cursor pointer
+
+.ch__div__img
+    width 60px
+    color silver
+    border-radius 50%
+
+.ch__div__img>img
+    width 100%
+    border-radius 10%
+
+//white-space со значением nowrap,
+
+.ch__last__message
+    color silver
+    white-space nowrap
+    overflow hidden
+    text-overflow: ellipsis;
