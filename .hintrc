@@ -3,11 +3,7 @@
     "development"
   ],
   "hints": {
-    "axe/language": [
-      "default",
-      {
-        "html-has-lang": "off"
-      }
-    ]
+    "typescript-config/consistent-casing": "off",
+    "typescript-config/strict": "off"
   }
 }
