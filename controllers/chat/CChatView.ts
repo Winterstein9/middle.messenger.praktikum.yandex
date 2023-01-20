@@ -55,9 +55,6 @@ export class CChatView {
     if (this.chatListELDIV) {
       console.log("this.chatListELDIV",this.chatListELDIV);
       console.log("chats",chats);
-
-      //console.log("this.makeChatList(chats);",this.makeChatList(chats))
-
       this.chatListELDIV.innerHTML = this.makeChatList(chats);
     }
   }
@@ -67,7 +64,6 @@ export class CChatView {
     chats.map((chat: ChatUT) => {
       chatList += this.chatUnit.makeChatUnit(
         chat.title,
-        //chat.avatar,
         chat.unread_count,
         chat.last_message,
         chat.id

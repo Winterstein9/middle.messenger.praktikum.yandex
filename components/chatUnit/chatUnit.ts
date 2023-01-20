@@ -18,7 +18,6 @@ export class ChatUnit {
 
   makeChatUnit(
     title: string,
-    //avatar?: string,
     unread_count?: string | null,
     last_message?: LastMessage,
     id?: number

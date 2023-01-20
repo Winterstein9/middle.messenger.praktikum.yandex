@@ -34,9 +34,8 @@ export class CChat extends CChatView {
   searchUser2(userLogin: string) {
     this.CRequests.requestSerchUsers(userLogin).then((users: [User]) => {
       this.setViewDetectedUsers(users);
-      //this.eventAddUserToChat();
     }).then(()=>{
-      this.eventAddUserToChat();//8
+      this.eventAddUserToChat();
     }).catch((err: string) => {
       console.error("error", err);
     });
@@ -46,17 +45,6 @@ export class CChat extends CChatView {
     this.display(this.messageSelectDisplay);
     this.CRequests.requestGetChats()
       .then((chats) => {
-
-        /*
-        console.log("получены чаты", chats)----------------------------
-      for(let v = 0; v<chats.length; v++){
-        this.chatsMessages[chats[v].id]=[]
-      }
-      localStorage.setItem('myCat', JSON.stringify(this.chatsMessages));
-     let myCat = JSON.parse(localStorage.getItem('myCat')as string)
-      console.log("=",myCat,"=")
-      console.log(";mmnkln===>", this.chatsMessages)
-*/
         this.setViewChats(chats);
         this.addEventChat();
       })
@@ -92,11 +80,8 @@ export class CChat extends CChatView {
             chat.style.border = "1px solid silver";
             this.messageSelectDisplay.style.display = "none";
             this.chatID = chat.getAttribute("data-id");
-
             this.startSocket();
-
             this.clearChatView()
-
             this.display(this.chatDisplay);
           } else {
             chat.style.border = "";
