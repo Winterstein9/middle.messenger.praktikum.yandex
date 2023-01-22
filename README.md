@@ -6,6 +6,9 @@ yarn start
 Cобирает билд, а затем запускает сервер express:
 yarn express
 
+Запуск тестов:
+yarn test
+
 Домен Netlify:
 https://idyllic-sherbet-2a6ef8.netlify.app/
 

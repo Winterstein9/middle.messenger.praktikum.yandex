@@ -3,12 +3,14 @@
     "outDir": "dist",
     "target": "es2022",
     "declaration": false,
-    "module": "es2022",
-    "strictNullChecks": true,
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "moduleResolution":"node"
+    "strictNullChecks": false,
+    "sourceMap": false,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "moduleResolution":"node",
+    "allowSyntheticDefaultImports":true
     }
 }
+
+

@@ -8,31 +8,43 @@
     "prod": "webpack --node-env=production",
     "clear": "rd /s /q dist",
     "express": "webpack --node-env=production && node express.js",
-    "test": "mocha --require ts-node/register './test/**/*.test.ts'"
+    "test": "mocha --require ts-node/register --require ./test/mochaSetup.js './test/**/*.test.ts'"
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/chai": "^4.3.4",
-    "@types/mocha": "^10.0.1",
-    "chai": "^4.3.7",
+    "@types/chai": "4.3.4",
+    "@types/mocha": "10.0.1",
+    "@types/sinon": "^10.0.13",
+    "chai": "4.3.7",
     "css-loader": "6.7.3",
+    "eslint": "8.26.0",
+    "eslint-config-airbnb": "19.0.4",
     "handlebars": "4.7.7",
     "handlebars-loader": "1.7.3",
     "html-loader": "4.2.0",
     "html-webpack-plugin": "5.5.0",
-    "mocha": "^10.2.0",
+    "husky": "^8.0.3",
+    "jsdom": "^21.0.0",
+    "mocha": "10.2.0",
+    "sinon": "^15.0.1",
     "style-loader": "3.3.1",
+    "stylelint": "14.14.1",
+    "stylelint-plugin-stylus": "0.17.0",
     "stylus": "0.59.0",
     "stylus-loader": "7.1.0",
     "ts-loader": "9.4.2",
-    "ts-node": "^10.9.1",
+    "ts-node": "10.9.1",
     "typescript": "4.9.4",
     "webpack": "5.75.0",
     "webpack-cli": "5.0.1",
-    "webpack-dev-server": "4.11.1",
-    "stylelint": "14.14.1",
-    "stylelint-plugin-stylus": "0.17.0",
-    "eslint": "8.26.0",
-    "eslint-config-airbnb": "19.0.4"
+    "webpack-dev-server": "4.11.1"
+  },
+  "dependencies": {
+    "express": "4.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test"
+    }
   }
 }
