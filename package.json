@@ -8,7 +8,8 @@
     "prod": "webpack --node-env=production",
     "clear": "rd /s /q dist",
     "express": "webpack --node-env=production && node express.js",
-    "test": "mocha --require ts-node/register --require ./test/mochaSetup.js './test/**/*.test.ts'"
+    "test": "mocha --require ts-node/register --require ./test/mochaSetup.js './test/**/*.test.ts'",
+    "prepare": "husky install"
   },
   "license": "MIT",
   "devDependencies": {
