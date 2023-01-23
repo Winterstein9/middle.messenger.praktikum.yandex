@@ -1,4 +1,6 @@
-FROM alpine:18.13
+FROM alpine
+
+RUN apk add --update nodejs npm
 
 WORKDIR /www
 
