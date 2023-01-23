@@ -1,6 +1,6 @@
 {
   "name": "4w",
-  "version": "1.0.0",
+  "version": "4.0.6",
   "main": "navigation.ts",
   "scripts": {
     "start": "webpack serve",
@@ -42,10 +42,5 @@
   },
   "dependencies": {
     "express": "4.18.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn test"
-    }
   }
 }

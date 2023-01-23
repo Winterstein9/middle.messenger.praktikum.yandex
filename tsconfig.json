@@ -1,16 +1,20 @@
 {
-    "compilerOptions":{
-    "outDir": "dist",
-    "target": "es2022",
-    "declaration": false,
-    "strictNullChecks": false,
-    "sourceMap": false,
-    "noImplicitAny": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "moduleResolution":"node",
-    "allowSyntheticDefaultImports":true
+    "ts-node": {
+      "files": true
+    },
+    "compilerOptions": {
+      "target": "es2022",
+      "module": "commonjs",
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "outDir": "dist",
+  
+      "strict": true,
+      "skipLibCheck": true,
+      "lib": [
+        "ESNext",
+        "DOM"
+      ]
     }
-}
-
-
+  }
+  
