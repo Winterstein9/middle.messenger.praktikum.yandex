@@ -1,7 +1,5 @@
 FROM alpine:18.13
 
-RUN apk add --update nodejs npm
-
 WORKDIR /www
 
 RUN npm install express
