@@ -1,9 +1,9 @@
 import { HTTPTransport } from "../../engine/HTTPTransport";
 import { Navigator } from "../../engine/navigator";
-import { idea } from "../../engine/idea";
 
 export class CSettings {
   HTTPTransport: HTTPTransport = new HTTPTransport();
+  Navigator: Navigator = new Navigator();
   constructor() {
     this.getDataUser();
     this.logout();
@@ -11,7 +11,7 @@ export class CSettings {
 
   getDataUser() {
     this.HTTPTransport.get("auth/user", { method: "GET" }).then((ans) => {
-      let inputs = document.querySelectorAll(".un__form > input");
+      const inputs = document.querySelectorAll(".un__form > input");
       if (inputs) {
         inputs.forEach((input: HTMLInputElement) => {
           for (let i in ans) {
@@ -23,7 +23,7 @@ export class CSettings {
       }
     }).catch((err: string) => {
         console.error("error", err);
-      });;
+      });
   }
 
   logout() {
@@ -31,8 +31,10 @@ export class CSettings {
       e.preventDefault();
       new HTTPTransport().get("auth/logout", { method: "POST" }).then((ans) => {
         if (ans === "OK") {
-          localStorage.clear();
-          new Navigator(idea, "/");
+          this.Navigator.segue("/");
+        }else {
+          console.log("exit")
+          this.Navigator.segue("/");
         }
       });
     });

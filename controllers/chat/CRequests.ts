@@ -3,8 +3,6 @@ import { HTTPTransport } from "../../engine/HTTPTransport";
 export class CRequests {
   HTTPTransport: HTTPTransport = new HTTPTransport();
 
-  constructor() {}
-
   requestGetUserData() {
     return this.HTTPTransport.get("auth/user", { method: "GET" });
   }

@@ -15,18 +15,21 @@ export class CСhangeIMG {
   }
 
   setAvatar() {
-    const userAvatar: string | null = localStorage.getItem("userAvatar");
-    if (userAvatar && this.avatar) {
-      this.avatar.src = userAvatar;
-    }
+    try{
+      const userAvatar: string | null = localStorage.getItem("userAvatar");
+      if (userAvatar && this.avatar) {
+        this.avatar.src = userAvatar;
+      }
+   }catch(err){
+    console.log(err.name, err.message)
+   }
   }
 
   updateUserAvatar() {
-    let butChIMG = document.querySelector(".chimg__input__sub");
+    const butChIMG = document.querySelector(".chimg__input__sub");
     butChIMG?.addEventListener("click", (e) => {
       e.preventDefault();
-      let formData = new FormData();
-
+      const formData = new FormData();
       let img: any;
       if (this.inputFileAvatar?.files) {
         img = this.inputFileAvatar.files[0];
@@ -40,7 +43,12 @@ export class CСhangeIMG {
         if (this.avatar) {
           let avatarPath = this.yandexPathAvatar + ans.avatar;
           this.avatar.src = avatarPath;
-          localStorage.setItem("userAvatar", avatarPath);
+          try{
+           localStorage.setItem("userAvatar", avatarPath);
+          }catch(err){
+            console.log(err.name, err.message)
+          }
+
         }
       }).catch((err: string) => {
         console.error("error", err);

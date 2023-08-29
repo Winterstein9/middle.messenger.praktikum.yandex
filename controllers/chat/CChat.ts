@@ -12,16 +12,18 @@ export class CChat extends CChatView {
   socket: WebSocket | null;
   CRequests: CRequests = new CRequests();
 
-  private static _exit: CChat;
+  chatsMessages: any = {}
+
+  private static _CChat: CChat;
 
   constructor() {
     super();
-    if (CChat._exit) {
-      return CChat._exit;
+    if (CChat._CChat) {
+      return CChat._CChat;
     }
-    CChat._exit = this;
-
-    if (document.location.pathname == "/chats" && this.fatalUser == null) {
+    CChat._CChat = this;
+    
+    if (document.location.pathname == "/chats" && this.fatalUser == null) {      
       this.getUserData();
       this.addChatList();
       this.sendMessage();
@@ -32,7 +34,10 @@ export class CChat extends CChatView {
   searchUser2(userLogin: string) {
     this.CRequests.requestSerchUsers(userLogin).then((users: [User]) => {
       this.setViewDetectedUsers(users);
+    }).then(()=>{
       this.eventAddUserToChat();
+    }).catch((err: string) => {
+      console.error("error", err);
     });
   }
 
@@ -76,6 +81,7 @@ export class CChat extends CChatView {
             this.messageSelectDisplay.style.display = "none";
             this.chatID = chat.getAttribute("data-id");
             this.startSocket();
+            this.clearChatView()
             this.display(this.chatDisplay);
           } else {
             chat.style.border = "";
@@ -124,7 +130,7 @@ export class CChat extends CChatView {
     addUser.forEach((user) => {
       let userID = user.getAttribute("data-id");
       user.addEventListener("click", () => {
-        if (this.userOverlap(userID) == false) {
+        if (this.userOverlap2(userID) == false) {
           this.CRequests.requestAddUserToChat(userID, this.chatID)
             .then(() => {})
             .then(() => {
@@ -150,7 +156,7 @@ export class CChat extends CChatView {
       });
   }
 
-  userOverlap(userID: string | null) {
+  userOverlap2(userID: string | null) {
     let x = 0;
     do {
       if (this.addedUsersToChat[x].id == userID) {
@@ -170,7 +176,7 @@ export class CChat extends CChatView {
     delUser.forEach((user) => {
       user.addEventListener("click", (e) => {
         e.preventDefault();
-        let userID = user.getAttribute("data-id");
+        const userID = user.getAttribute("data-id");
         this.CRequests.requestDelUserFromChat(userID, this.chatID)
           .then(() => {
             this.getChatUsers();
@@ -219,7 +225,7 @@ export class CChat extends CChatView {
     if (formEL) {
       formEL.addEventListener("submit", (e) => {
         e.preventDefault();
-        let messageEL: HTMLTextAreaElement | null =
+        const messageEL: HTMLTextAreaElement | null =
           formEL.querySelector(".ch__textarea");
         if (messageEL && this.socket) {
           this.socket.send(
